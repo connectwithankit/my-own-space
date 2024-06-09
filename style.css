@@ -14,3 +14,7 @@ h3 {
     font-family: Georgia, serif;
     font-weight: normal;
 }
+
+.content-section {
+    margin: 4em 0;
+}
