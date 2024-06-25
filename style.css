@@ -18,3 +18,8 @@ h3 {
 .content-section {
     margin: 3em 0;
 }
+
+.my-image {
+    width: 640px; /* Set desired width */
+    height: auto; /* Maintains aspect ratio */
+}
