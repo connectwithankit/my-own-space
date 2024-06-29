@@ -23,3 +23,21 @@ h3 {
     width: 640px; /* Set desired width */
     height: auto; /* Maintains aspect ratio */
 }
+
+a {
+    color: purple; /* Default link color, replace with your desired color */
+    text-decoration: none; /* Optional: remove underline */
+}
+
+a:visited {
+    color: purple; /* Replace with your desired color for visited links */
+}
+
+a:hover {
+    text-decoration: underline; /* Add underline on hover */
+    color: none; /* Inherit color from the default state */
+}
+
+a:active {
+    color: orange; /* Replace with your desired color for active state */
+}
