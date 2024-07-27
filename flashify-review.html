@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashback Offer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .header {
+            font-size: 24px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .main-text {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            font-size: 14px;
+            color: #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Get INR 50 Cashback!</div>
+        <div class="main-text">Please follow the steps below:</div>
+        <div class="instructions">
+            1. Fill in a review for the product along with photos.<br>
+            2. Provide your UPI ID or bank account details.
+        </div>
+        <form id="review-form">
+            <div class="form-group">
+                <label for="review">Product Review:</label>
+                <textarea id="review" name="review" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="photos">Upload Photos:</label>
+                <input type="file" id="photos" name="photos" accept="image/*" multiple required>
+            </div>
+            <div class="form-group">
+                <label for="upi-id">UPI ID or Bank Account Details:</label>
+                <input type="text" id="upi-id" name="upi-id" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="confirmation" style="display:none;">
+            <p>Thank you for your review! Your cashback will be processed shortly.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('review-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Here you can add the functionality to submit the form data to your server
+            document.getElementById('review-form').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
