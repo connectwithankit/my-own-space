@@ -41,3 +41,68 @@ a:hover {
 a:active {
     color: orange; /* Replace with your desired color for active state */
 }
+
+/* General blockquote styling */
+blockquote {
+    font-style: italic;
+    color: #555555;
+    border-left: 5px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "“" "”" "‘" "’";
+}
+
+blockquote:before {
+    content: open-quote;
+    font-size: 2em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+    color: #ccc;
+}
+
+blockquote:after {
+    content: close-quote;
+    font-size: 2em;
+    line-height: 0.1em;
+    margin-left: 0.25em;
+    vertical-align: -0.4em;
+    color: #ccc;
+}
+
+/* Styling for quotes within a paragraph */
+q {
+    quotes: "“" "”" "‘" "’";
+}
+
+q:before {
+    content: open-quote;
+    color: #ccc;
+}
+
+q:after {
+    content: close-quote;
+    color: #ccc;
+}
+
+/* list styling */
+.list {
+    list-style-type: disc; /* Bullet points */
+    margin-left: 20px; /* Indentation */
+}
+
+/* Styling for list items within .list */
+.list li {
+    margin-bottom: 10px; /* Space between questions */
+    color: #333; /* Text color */
+}
+
+ /* Footer styles */
+ footer {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+}
