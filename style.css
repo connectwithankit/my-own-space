@@ -106,3 +106,63 @@ q:after {
     font-size: 0.9em;
     color: #555;
 }
+
+figcaption {
+    text-align: left;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.sub-heading {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+
+.side-note {
+    background-color: #f9f9f9;
+    border-left: 4px solid #ff6f61;
+    padding: 10px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+}
+
+.hampi-pre-end-note {
+    font-style: italic;
+    color: #333;
+    font-size: 0.9em;
+    padding: 10px;
+    margin: 15px 0;
+    border-left: 3px solid #007bff;
+}
+
+.hampi-pre-end-note-2 {
+    font-style: italic;
+    color: #333;
+    font-size: 0.9em;
+    padding: 10px;
+    margin: 15px 0;
+}
+
+.thank-you-section {
+    background-color: #f0f8ff; /* Light background color for a soft appearance */
+    border: 2px solid #ff6f61; /* Highlight border color */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    padding: 20px; /* Space inside the section */
+    margin: 30px 0; /* Space around the section */
+    text-align: center; /* Center align text */
+}
+
+.thank-you-section h3 {
+    color: #ff6f61; /* Heading color to match the border */
+    font-size: 1.8em; /* Larger font size for prominence */
+    margin-bottom: 15px; /* Space below the heading */
+}
+
+.thank-you-section p {
+    color: #333; /* Dark text color for readability */
+    font-size: 1.2em; /* Slightly larger font size */
+    line-height: 1.6; /* Increased line height for better readability */
+}
