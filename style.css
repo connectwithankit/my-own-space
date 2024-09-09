@@ -20,8 +20,10 @@ h3 {
 }
 
 .my-image {
-    width: 640px; /* Set desired width */
-    height: auto; /* Maintains aspect ratio */
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Optional: to center the image */
 }
 
 a {
