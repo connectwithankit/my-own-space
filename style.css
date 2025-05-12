@@ -23,6 +23,7 @@ h3 {
     max-width: 100%;
     height: auto;
     display: block;
+    width: auto;  /* Set to a suitable width, adjust as needed */
     margin: 0 auto; /* Optional: to center the image */
 }
 
