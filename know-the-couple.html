@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riya & Ankit Quiz Game | #RiyallyAnkit's</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #d4c5f9 0%, #b8a3d9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #d4c5f9 0%, #b8a3d9 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .hashtag {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .names {
+            font-size: 14px;
+            letter-spacing: 3px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        /* Welcome Screen */
+        .welcome-screen {
+            text-align: center;
+        }
+        
+        .welcome-screen h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            color: #9d89c7;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-screen p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        .placeholder-image {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #ff9a9e 100%);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #d4c5f9 0%, #b8a3d9 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(157, 137, 199, 0.4);
+        }
+        
+        /* Quiz Screen */
+        .quiz-screen {
+            display: none;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(135deg, #d4c5f9 0%, #b8a3d9 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .question-number {
+            text-align: center;
+            color: #9d89c7;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 18px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .option:hover {
+            border-color: #b8a3d9;
+            background: #f5f0ff;
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            border-color: #9d89c7;
+            background: #e8dff5;
+        }
+        
+        .option.correct {
+            border-color: #00b894;
+            background: #d4edda;
+            animation: correctPulse 0.5s;
+        }
+        
+        .option.wrong {
+            border-color: #d63031;
+            background: #f8d7da;
+            animation: shake 0.5s;
+        }
+        
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+            animation: slideUp 0.5s;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 5px solid #00b894;
+        }
+        
+        .feedback.wrong {
+            background: #f8d7da;
+            border-left: 5px solid #d63031;
+        }
+        
+        .feedback-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .feedback.correct .feedback-title {
+            color: #00b894;
+        }
+        
+        .feedback.wrong .feedback-title {
+            color: #d63031;
+        }
+        
+        .feedback-story {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .next-btn {
+            margin-top: 25px;
+            width: 100%;
+        }
+        
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+        }
+        
+        .results-emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .results-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #9d89c7;
+            margin-bottom: 15px;
+        }
+        
+        .score-display {
+            font-size: 48px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .score-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .results-message {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #9d89c7;
+            border: 2px solid #9d89c7;
+        }
+        
+        .btn-secondary:hover {
+            background: #9d89c7;
+            color: white;
+        }
+        
+        @media (max-width: 600px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .question {
+                font-size: 24px;
+            }
+            
+            .hashtag {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="hashtag">#RiyallyAnkit's</div>
+            <div class="names">RIYA AND ANKIT</div>
+        </div>
+        
+        <div class="content">
+            <!-- Welcome Screen -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="placeholder-image">💕</div>
+                <h1>How Well Do You Know Us?</h1>
+                <p>Test your knowledge about Riya and Ankit! Answer 12 fun questions about our journey together. Let's see if you're a true insider! 🎉</p>
+                <button class="btn" onclick="startQuiz()">Start Quiz</button>
+            </div>
+            
+            <!-- Quiz Screen -->
+            <div class="quiz-screen" id="quizScreen">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                <div class="question-number" id="questionNumber"></div>
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+                <div class="feedback" id="feedback">
+                    <div class="feedback-title" id="feedbackTitle"></div>
+                    <div class="feedback-story" id="feedbackStory"></div>
+                </div>
+                <button class="btn next-btn" id="nextBtn" onclick="nextQuestion()" style="display: none;">Next Question →</button>
+            </div>
+            
+            <!-- Results Screen -->
+            <div class="results-screen" id="resultsScreen">
+                <div class="results-emoji" id="resultsEmoji">🎉</div>
+                <div class="results-title" id="resultsTitle"></div>
+                <div class="score-display" id="scoreDisplay"></div>
+                <div class="score-text">out of 12 questions</div>
+                <div class="results-message" id="resultsMessage"></div>
+                <div class="btn-group">
+                    <button class="btn" onclick="startQuiz()">Play Again</button>
+                    <button class="btn btn-secondary" onclick="shareScore()">Share Score</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const questions = [
+            {
+                question: "What was their first date activity?",
+                options: ["Movie and dinner", "Coffee and long walk", "Adventure park", "House party"],
+                correct: 1,
+                story: "Our first date was at a cozy café followed by a 3-hour walk where we talked about everything from pizza toppings to life dreams to bade bhaiya at VMC. Ankit was so nervous he ordered the Lebanese food (who eats Lebanese?)"
+            },
+            {
+                question: "What is Riya's favorite food?",
+                options: ["Pizza", "Biryani", "Sushi", "Pasta"],
+                correct: 2,
+                story: "Riya is obsessed with Sushi! She's tried Sushi in 10 different cafes and still claims what Ankit makes is the best. Ankit knows the way to her heart is through good Sushi!"
+            },
+            {
+                question: "What is Ankit's hidden talent?",
+                options: ["Playing guitar", "Cooking Italian food", "Mimicking voices", "Solving Rubik's cube"],
+                correct: 2,
+                story: "Ankit can mimic anyone! From Bollywood actors to cartoon characters, his impressions have everyone in splits. His proposal was in his own voice though - true story!"
+            },
+            {
+                question: "What TV show are Riya and Ankit currently binge-watching?",
+                options: ["Friends", "Game of Thrones", "The Office", "Little Things"],
+                correct: 3,
+                story: "These two fight like Dhruv and Kavya and then make up for the fight like Ankit and Riya. Guess what, Ankit has figured that Riya is always right"
+            },
+            {
+                question: "What's Riya's biggest pet peeve about Ankit?",
+                options: ["Always late", "Leaves clothes everywhere", "Forgets important dates", "Sings in the shower"],
+                correct: 0,
+                story: "Ankit is ALWAYS late - to dates, parties, even his own birthday celebration! Riya has started telling him events are 30 minutes earlier. It works... sometimes!"
+            },
+            {
+                question: "What is Ankit's all-time favorite Bollywood actor?",
+                options: ["Aamir Khan", "Shah Rukh Khan", "Salman Khan", "Ranbir Kapoor"],
+                correct: 1,
+                story: "Ankit is a die-hard SRK fan! He can quote every iconic dialogue and has watched DDLJ at least 20 times. Riya jokes that she's competing with Shah Rukh for Ankit's attention!"
+            },
+            {
+                question: "How does Riya prefer to watch movies?",
+                options: ["In theaters with popcorn", "On Netflix marathons", "Reading plots on Wikipedia", "With friends at home"],
+                correct: 2,
+                story: "Yes, you read that right! Riya reads entire movie plots on Wikipedia instead of watching them. Ankit finds it hilarious and always asks 'So what happened in the movie you didn't watch today?'"
+            },
+            {
+                question: "What kind of books does Ankit love reading?",
+                options: ["Fiction novels", "Non-fiction books", "Mystery thrillers", "Comic books"],
+                correct: 1,
+                story: "Ankit is all about non-fiction! From biographies to Indian history, he loves learning real stories. Meanwhile, Riya avoids non-fiction like the plague. Opposites really do attract!"
+            },
+            {
+                question: "What concert did Ankit recently attend?",
+                options: ["Arijit Singh in Mumbai", "Coldplay in Ahmedabad", "Diljit Dosanjh in Delhi", "AR Rahman in Bangalore"],
+                correct: 1,
+                story: "Ankit traveled all the way to Ahmedabad for Coldplay! He came back with videos, merch, and wouldn't stop talking about it for weeks. Riya's still hearing about 'Fix You' live!"
+            },
+            {
+                question: "What is Riya's favorite night-time activity?",
+                options: ["Scrolling through Instagram", "Stargazing", "Reading books", "Binge-watching shows"],
+                correct: 1,
+                story: "Riya loves stargazing! She can spend hours looking at the night sky and pointing out constellations. Ankit pretends to find stars but honestly just loves watching her light up while talking about them."
+            },
+            {
+                question: "What did Ankit study in college?",
+                options: ["Computer Science Engineering", "Business Management", "Mechanical Engineering", "Architecture"],
+                correct: 0,
+                story: "Ankit is a Computer Science engineer who codes by day and dreams by night! He's the tech guy everyone calls when their WiFi stops working. Yes, even at parties!"
+            },
+            {
+                question: "What best describes Riya and Ankit's personalities?",
+                options: ["Both are dreamers", "Both are realists", "Ankit is the dreamer, Riya is the realist", "Riya is the dreamer, Ankit is the realist"],
+                correct: 2,
+                story: "Ankit dreams big and Riya brings him back to earth - the perfect balance! He says 'Let's backpack through Europe!' and she says 'Let's start with a budget spreadsheet.' They make it work!"
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+        
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            loadQuestion();
+        }
+        
+        function loadQuestion() {
+            answered = false;
+            const q = questions[currentQuestion];
+            
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById('question').textContent = q.question;
+            document.getElementById('progressBar').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+        }
+        
+        function selectAnswer(selected) {
+            if (answered) return;
+            
+            answered = true;
+            const q = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((opt, idx) => {
+                opt.classList.add('disabled');
+                if (idx === q.correct) {
+                    opt.classList.add('correct');
+                }
+            });
+            
+            if (selected === q.correct) {
+                score++;
+                options[selected].classList.add('correct');
+                showFeedback(true, q.story);
+            } else {
+                options[selected].classList.add('wrong');
+                showFeedback(false, q.story);
+            }
+            
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+        
+        function showFeedback(isCorrect, story) {
+            const feedback = document.getElementById('feedback');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackStory = document.getElementById('feedbackStory');
+            
+            feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+            feedbackTitle.textContent = isCorrect ? '🎉 Correct!' : '❌ Oops!';
+            feedbackStory.textContent = story;
+            feedback.style.display = 'block';
+        }
+        
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function showResults() {
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+            
+            const percentage = (score / questions.length) * 100;
+            let title, emoji, message;
+            
+            if (percentage === 100) {
+                title = "Ultimate Insider! 🏆";
+                emoji = "🎉";
+                message = "WOW! You know EVERYTHING about us! You've been paying attention to every detail. You deserve a special mention at the wedding!";
+            } else if (percentage >= 80) {
+                title = "Riya & Ankit Expert! 🌟";
+                emoji = "⭐";
+                message = "Amazing! You know us so well! You're definitely in our inner circle. Just a few more stories and you'll be perfect!";
+            } else if (percentage >= 60) {
+                title = "Getting There! 💫";
+                emoji = "😊";
+                message = "Pretty good! You know quite a bit about us. Spend some more time with us and you'll ace it next time!";
+            } else if (percentage >= 40) {
+                title = "Need More Gossip Sessions! 😄";
+                emoji = "🤔";
+                message = "Not bad for a start! We need to hang out more so you can learn all our quirks and stories. Let's catch up soon!";
+            } else {
+                title = "Just Getting Started! 🎈";
+                emoji = "😅";
+                message = "Hey, everyone starts somewhere! This wedding is the perfect time to get to know us better. Let's make some memories!";
+            }
+            
+            document.getElementById('resultsTitle').textContent = title;
+            document.getElementById('resultsEmoji').textContent = emoji;
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('resultsMessage').textContent = message;
+            
+            // Save high score
+            const highScore = localStorage.getItem('riyaAnkitHighScore') || 0;
+            if (score > highScore) {
+                localStorage.setItem('riyaAnkitHighScore', score);
+            }
+        }
+        
+        function shareScore() {
+            const text = `I scored ${score}/12 on the Riya & Ankit Quiz! 🎉 #RiyallyAnkit's`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Riya & Ankit Quiz',
+                    text: text
+                });
+            } else {
+                alert(text + '\n\nCopy this to share with friends!');
+            }
+        }
+    </script>
+</body>
+</html>
