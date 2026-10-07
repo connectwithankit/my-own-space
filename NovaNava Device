@@ -1,9 +1,0 @@
-WHAT: a small dedicated voice device - mic, speaker, one button - that gives instant access to your AI assistant. No phone unlock, no app, no screen. Press, speak, get the answer. A physical home for your AI.
-
-WHY NOW: voice AI crossed the quality line, so the remaining friction is access, not intelligence. Phones bury the assistant behind 4 taps. And ESP32-class hardware + ESPHome + a 3D printer make a real prototype a weekend project instead of a company. (You have all three.)
-
-WHO: AI power users first - people already living in Claude/agents who want ambient access at their desk, kitchen, workshop. Consumer wave follows.
-
-CLAUDE'S ROLE: the brain. The device is the ear and mouth; Claude runs the reasoning - long tasks, personal context, agent workflows.
-
-WHY IT WINS: Humane and Rabbit proved there's demand AND that overreach kills. An honest single-purpose device that does one thing perfectly is open ground. (My read, their tombstones are the evidence.)
